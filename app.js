@@ -1,10 +1,9 @@
 const express = require('express');
+require('express-async-errors');
+const productsRoute = require('./routes/productsRoute');
 
 const app = express();
 app.use(express.json());
-
-const productsRoute = require('./routes/productsRoute');
-const errorMidlleware = require('./middlewares/error');
 
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
@@ -13,7 +12,21 @@ app.get('/', (_request, response) => {
 
 app.use('/products', productsRoute);
 
-app.use(errorMidlleware);
+app.use((err, _req, res, _next) => {
+  const { name, message } = err;
+  switch (name) {
+    case 'ValidationError':
+      res.status(400).json({ message }); // bad request
+      break;
+    case 'NotFoundError':
+      res.status(404).json({ message }); // not found
+      break;
+    default:
+      console.warn(err);
+      res.sendStatus(500);
+      break;
+  }
+});
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
