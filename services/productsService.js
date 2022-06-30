@@ -1,19 +1,12 @@
 const Joi = require('joi');
+const { runSchema } = require('./validators');
 const productModel = require('../models/productsModel');
 const NotFoundError = require('../errors/NotFoundError');
 
 const productsService = {
-  validateParamsId: (data) => {
-  const schema = Joi.object({
+  validateParamsId: runSchema(Joi.object({
     id: Joi.number().required().positive().integer(),
-  });
-  const { error, value } = schema.validate(data);
-    if (error) {
-      error.message = error.details[0].message;
-      throw error;
-    }
-    return value;
-  },
+  })),
 
   checkIfExists: async (id) => {
     const exists = await productModel.exists(id);
