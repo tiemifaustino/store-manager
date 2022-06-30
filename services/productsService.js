@@ -1,9 +1,14 @@
 const productModel = require('../models/productsModel');
 
 const productsService = {
-  list: async () => {
-    const products = await productModel.list();
+  getAllProducts: async () => {
+    const products = await productModel.getAllProducts();
     return products;
+  },
+
+  getProductById: async (idProduct) => {
+    const item = await productModel.getProductById(idProduct);
+    return item;
   },
 };
 
