@@ -1,5 +1,5 @@
-const connection = require('../../models/connection');
-const productsModel = require('../../models/productsModel');
+const connection = require('../../../models/connection');
+const productsModel = require('../../../models/productsModel');
 const sinon = require('sinon');
 const chaiAsPromised = require('chai-as-promised');
 const { expect, use } = require('chai');
