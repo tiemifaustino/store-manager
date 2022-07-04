@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const { runSchema } = require('./validators');
-const productModel = require('../models/productsModel');
+const productsModel = require('../models/productsModel');
 const NotFoundError = require('../errors/NotFoundError');
 
 const productsService = {
@@ -13,22 +13,22 @@ const productsService = {
   })),
 
   checkIfExists: async (id) => {
-    const exists = await productModel.exists(id);
+    const exists = await productsModel.exists(id);
     if (!exists) NotFoundError('Product not found');
   },
 
   get: async () => {
-    const products = await productModel.get();
+    const products = await productsModel.get();
     return products;
   },
 
   getById: async (idProduct) => {
-    const item = await productModel.getById(idProduct);
+    const item = await productsModel.getById(idProduct);
     return item;
   },
 
   add: async (data) => {
-    const id = await productModel.add(data);
+    const id = await productsModel.add(data);
     return id;
   },
 };

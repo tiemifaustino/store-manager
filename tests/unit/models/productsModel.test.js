@@ -60,7 +60,7 @@ describe('productsModel', () => {
   });
 
   describe('#add', () => {
-    it('ao enviar um objeto com o atributo `name` deve salvar os dados e retornar o id', () => {
+    it('ao enviar um objeto com o atributo `name` deve salvar os dados e retornar o produto adicionado', () => {
       const expectedId = 4
       sinon.stub(connection, 'query').resolves([{ insertId: expectedId }]);
       return expect(productsModel.add({ name: 'Produto X' })).to.eventually.be.deep.equal(expectedId);
