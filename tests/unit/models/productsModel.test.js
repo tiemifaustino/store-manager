@@ -18,9 +18,9 @@ describe('productsModel', () => {
       // arranjo
       sinon.stub(connection, 'execute').resolves(true);
       // assertiva
-      // const result = await productsModel.exists(id);
+      const result = await productsModel.exists(id);
       // ação
-      expect(productsModel.exists(id)).to.eventually.be.equal(true);
+      expect(result).to.be.equal(true);
     });
 
     it('ao mandar um id de produto que não existe deve retornar `false`', async () => {
