@@ -68,19 +68,19 @@ describe('productsController', () => {
     it('deve chamar res.status com 201 e res.json com o objeto criado ao enviar um `req.body` válido', async () => {
       const req = {};
       const res = {};
-
-      req.body = { name: 'Produto X' };
-
+      
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
-
+      
+      req.body = { name: 'Produto X' };
+      
       sinon.stub(productsService, 'add').resolves(1);
-      sinon.stub(productsService, 'get').resolves({ id: 1, name: 'Produto X' })
+      sinon.stub(productsService, 'getById').resolves({ id: 1, name: 'Produto X' })
 
       await productsController.add(req, res);
 
       expect(res.status.calledWith(201)).to.be.equal(true);
-      // expect(res.json.calledWith({ id: 1, name: 'Produto X' })).to.be.equal(true);
+      expect(res.json.calledWith({ id: 1, name: 'Produto X' })).to.be.equal(true);
     });
   });
 
