@@ -32,7 +32,6 @@ const productsModel = {
     `;
     const [{ insertId }] = await db.query(sql, [data.name]);
     return insertId;
-    // return { id: insertId, name: data.name };
   },
 };
 

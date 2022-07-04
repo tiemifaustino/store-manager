@@ -13,7 +13,7 @@ describe('productsModel', () => {
   beforeEach(() => sinon.restore());
 
   describe('#exists', () => {
-    it('ao mandar um id de produto que existe deve retornar `true`', async () => {
+    it('ao mandar um `id` de produto que existe deve retornar `true`', async () => {
       const id = 2
       // arranjo
       sinon.stub(connection, 'execute').resolves(true);
@@ -40,22 +40,30 @@ describe('productsModel', () => {
       return expect(productsModel.get()).to.eventually.be.deep.equal(listProductsMock);
     });
 
-    it('deve falhar se o connection.query disparar um erro', () => {
+    it('deve falhar se o `connection.query` disparar um erro', () => {
       sinon.stub(connection, 'query').rejects();
       return expect(productsModel.get()).to.eventually.be.rejected;
     });
   });
 
-  describe('#getProductById', () => {
-    it('deve retornar um objeto ao mandar um id de produto existente', () => {
+  describe('#getById', () => {
+    it('deve retornar um objeto ao mandar um `id` de produto existente', () => {
       sinon.stub(connection, 'query').resolves([[mockObj]]);
       return expect(productsModel.getById(2)).to.eventually.be.deep.equal(mockObj);
     });
 
-    it('deve retornar undefined ao mandar um id de produto inexistente', async () => {
+    it('deve retornar undefined ao mandar um `id` de produto inexistente', async () => {
       sinon.stub(connection, 'query').resolves([[]]);
       const result = await productsModel.getById(202);
       return expect(result).to.be.undefined;
+    });
+  });
+
+  describe('#add', () => {
+    it('ao enviar um objeto com o atributo `name` deve salvar os dados e retornar o id', () => {
+      const expectedId = 4
+      sinon.stub(connection, 'query').resolves([{ insertId: expectedId }]);
+      return expect(productsModel.add({ name: 'Produto X' })).to.eventually.be.deep.equal(expectedId);
     });
   });
 

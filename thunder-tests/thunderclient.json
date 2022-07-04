@@ -36,12 +36,12 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2022-07-04T19:22:04.492Z",
-    "modified": "2022-07-04T20:21:40.069Z",
+    "modified": "2022-07-04T21:02:26.839Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": " {\n    \"name\": \"Pro\"\n }",
+      "raw": " {\n    \"name\": \"Produto X\"\n }",
       "form": []
     },
     "tests": []
