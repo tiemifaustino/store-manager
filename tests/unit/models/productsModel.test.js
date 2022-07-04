@@ -16,7 +16,7 @@ describe('productsModel', () => {
       const id = 2
       sinon.stub(connection, 'execute').resolves(true);
       // assertiva
-      const result = await productsModel.exists(id)
+      const result = await productsModel.exists(id);
       // ação
       expect(result).to.be.eq(true);
     });
