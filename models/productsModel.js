@@ -10,19 +10,29 @@ const productsModel = {
     return !!exists; // !! - retorna valor booleano
   },
 
-  getAllProducts: async () => {
+  get: async () => {
     const sql = 'SELECT * FROM StoreManager.products';
     const [items] = await db.query(sql);
     return items;
   },
 
-  getProductById: async (idProduct) => {
+  getById: async (idProduct) => {
     const sql = `
       SELECT * FROM StoreManager.products
       WHERE id=?
     `;
     const [[item]] = await db.query(sql, [idProduct]);
     return item;
+  },
+
+  add: async (data) => {
+    const sql = `
+      INSERT INTO StoreManager.products (name)
+      VALUES (?)
+    `;
+    const [{ insertId }] = await db.query(sql, [data.name]);
+    return insertId;
+    // return { id: insertId, name: data.name };
   },
 };
 

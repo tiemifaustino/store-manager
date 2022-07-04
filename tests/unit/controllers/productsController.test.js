@@ -13,10 +13,10 @@ const NotFoundError = require('../../../errors/NotFoundError');
 describe('productsController', () => {
   beforeEach(() => sinon.restore());
 
-  describe('#getAll', () => {
+  describe('#get', () => {
     it('deve chamar res.status com 200 e res.json com o array quando o service devolve um array', async () => {
       // arranjo
-      sinon.stub(productsService, 'getAllProducts').resolves(listProductsMock);
+      sinon.stub(productsService, 'get').resolves(listProductsMock);
       const req = {};
       const res = {};
 
@@ -24,7 +24,7 @@ describe('productsController', () => {
       res.json = sinon.stub();
 
       // ação
-      await productsController.getAll(req, res);
+      await productsController.get(req, res);
 
       // assertivas
       expect(res.status.calledWith(200)).to.be.equal(true);
@@ -41,7 +41,7 @@ describe('productsController', () => {
       res.json = sinon.stub();
       req.params = { id: 2 };
       
-      sinon.stub(productsService, 'getProductById').resolves(mockObj);
+      sinon.stub(productsService, 'getById').resolves(mockObj);
 
       await productsController.getById(req, res);
 
@@ -50,14 +50,14 @@ describe('productsController', () => {
     });
 
     it('deve retornar erro `NotFoundError` com status 400 quando o id for inexistente', async () => {
-      sinon.stub(productsService, 'getProductById').rejects();
-
       const req = {};
       const res = {};
-
+      
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
       req.params = { id: 202 };
+      
+      sinon.stub(productsService, 'getById').rejects();
 
       return expect(productsController.getById(req, res)).to.eventually.be.rejectedWith('Product not found');
     });

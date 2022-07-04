@@ -35,22 +35,22 @@ describe('productsService', () => {
     });
   });
 
-  describe('#getAllProducts', () => {
+  describe('#get', () => {
     it('deve retornar um array com produtos se o model retornar um array', () => {
-      sinon.stub(productsModel, 'getAllProducts').resolves(listProductsMock);
-      return expect(productsService.getAllProducts()).to.eventually.deep.equal(listProductsMock);
+      sinon.stub(productsModel, 'get').resolves(listProductsMock);
+      return expect(productsService.get()).to.eventually.deep.equal(listProductsMock);
     });
   });
 
-  describe('#getProductById', () => {
+  describe('#getById', () => {
     it('deve retornar um objeto com as informações do produto se o id fornecido é existente', () => {
-      sinon.stub(productsModel, 'getProductById').resolves(mockObj);
-      return expect(productsService.getProductById(2)).to.eventually.deep.equal(mockObj);
+      sinon.stub(productsModel, 'getById').resolves(mockObj);
+      return expect(productsService.getById(2)).to.eventually.deep.equal(mockObj);
     });
 
     it('deve retornar `undefined` se o id fornecido é inexistente', () => {
-      sinon.stub(productsModel, 'getProductById').resolves(undefined);
-      return expect(productsService.getProductById(202)).to.eventually.be.undefined;
+      sinon.stub(productsModel, 'getById').resolves(undefined);
+      return expect(productsService.getById(202)).to.eventually.be.undefined;
     });
   });
 

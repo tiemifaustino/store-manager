@@ -1,8 +1,8 @@
 const productsService = require('../services/productsService');
 
 const productsController = {
-  getAll: async (_req, res) => {
-    const products = await productsService.getAllProducts();
+  get: async (_req, res) => {
+    const products = await productsService.get();
     res.status(200).json(products);
   },
 
@@ -12,9 +12,16 @@ const productsController = {
     // verifica se existe no banco
     await productsService.checkIfExists(id);
     // pega o dado
-    const item = await productsService.getProductById(id);
+    const item = await productsService.getById(id);
     // responde
     res.status(200).json(item);
+  },
+
+  add: async (req, res) => {
+    const data = await productsService.validateBodyAdd(req.body);
+    const id = await productsService.add(data);
+    const product = await productsService.getById(id);
+    res.status(201).json(product);
   },
 };
 
