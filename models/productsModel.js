@@ -16,6 +16,15 @@ const productsModel = {
     return items;
   },
 
+  listByArrayOfId: async (arrayOfId) => {
+    const sql = `
+      SELECT * FROM StoreManager.products
+      WHERE id IN (?);
+    `;
+    const [items] = await db.query(sql, arrayOfId);
+    return items;
+  },
+
   getById: async (idProduct) => {
     const sql = `
       SELECT * FROM StoreManager.products
