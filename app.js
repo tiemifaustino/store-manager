@@ -18,7 +18,7 @@ app.use((err, _req, res, _next) => {
   const { name, message, type } = err;
   switch (name) {
     case 'ValidationError':
-      if (type === 'string.min') return res.status(422).json({ message });
+      if (type === 'string.min' || type === 'number.min') return res.status(422).json({ message });
       res.status(400).json({ message }); // bad request
       break;
     case 'NotFoundError':
