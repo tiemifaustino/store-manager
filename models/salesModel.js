@@ -9,15 +9,6 @@ const salesModel = {
     const [{ insertId }] = await db.query(sql);
     return insertId;
   },
-
-  // get: async (id) => {
-  //   const sql = `
-  //     SELECT * FROM StoreManager.sales_products
-  //     WHERE sale_id=?
-  //   `;
-  //   const [[item]] = await db.query(sql, [id]);
-  //   return item;
-  // },
 };
 
 module.exports = salesModel;

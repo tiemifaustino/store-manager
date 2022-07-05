@@ -19,14 +19,6 @@ const salesService = {
     // await Promise.all(data.map((item) => salesProductsModel.bulkAddBySales(id, item)));
     return id;
   },
-
-  // get: async (id) => {
-  //   const items = await Promise.all([
-  //     salesModel.get(id);
-  //     salesProductsModel.
-  //   ]);
-  //   return items;
-  // },
 };
 
 module.exports = salesService;

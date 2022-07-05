@@ -11,7 +11,6 @@ const salesController = {
     // adiciona a venda na tabela 'sales' e passa os dados (productId e quantity) como argumento
     // retorna o id da venda
     const id = await salesService.add(data);
-    //
     res.status(201).json({
       id,
       itemsSold: data,
