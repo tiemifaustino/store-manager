@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const { array } = require('joi');
 const { runSchema } = require('./validators');
 const productsModel = require('../models/productsModel');
 const NotFoundError = require('../errors/NotFoundError');
@@ -19,12 +18,15 @@ const productsService = {
   },
 
   checkIfExistsByArrayOfId: async (arrayOfId) => {
+    // retorna os itens dos respectivos ids do 'arrayOfId'
     const items = await productsModel.listByArrayOfId(arrayOfId);
 
-    if (!items.length) return NotFoundError('Product not found');
+    if (!items.length || items.length !== arrayOfId.length) {
+      return NotFoundError('Product not found');
+    }
 
     items.forEach((item) => {
-      if (!arrayOfId.includes(item.productId)) return NotFoundError('Product not found');
+      if (!arrayOfId.includes(item.id)) return NotFoundError('Product not found');
     });
   },
 

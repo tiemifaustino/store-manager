@@ -21,7 +21,8 @@ const productsModel = {
       SELECT * FROM StoreManager.products
       WHERE id IN (?);
     `;
-    const [items] = await db.query(sql, arrayOfId);
+    // const map = arrayOfId.map((id) => id)
+    const [items] = await db.query(sql, [arrayOfId]);
     return items;
   },
 
