@@ -31,17 +31,17 @@ describe('productsModel', () => {
   });
 
   // usando o chaiAsPromised
-  describe('#get', () => {
+  describe('#list', () => {
     it('deve retornar um array com produtos ao consultar o banco', () => {
       // arranjo
       sinon.stub(connection, 'query').resolves([listProductsMock]);
       // ação/assertiva
-      return expect(productsModel.get()).to.eventually.be.deep.equal(listProductsMock);
+      return expect(productsModel.list()).to.eventually.be.deep.equal(listProductsMock);
     });
 
     it('deve falhar se o `connection.query` disparar um erro', () => {
       sinon.stub(connection, 'query').rejects();
-      return expect(productsModel.get()).to.eventually.be.rejected;
+      return expect(productsModel.list()).to.eventually.be.rejected;
     });
   });
 

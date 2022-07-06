@@ -10,7 +10,7 @@ const productsModel = {
     return !!exists; // !! - retorna valor booleano
   },
 
-  get: async () => {
+  list: async () => {
     const sql = 'SELECT * FROM StoreManager.products';
     const [items] = await db.query(sql);
     return items;

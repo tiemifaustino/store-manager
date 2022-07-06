@@ -60,10 +60,10 @@ describe('productsService', () => {
     });
   });
 
-  describe('#get', () => {
+  describe('#list', () => {
     it('deve retornar um array com produtos se o model retornar um array', () => {
-      sinon.stub(productsModel, 'get').resolves(listProductsMock);
-      return expect(productsService.get()).to.eventually.deep.equal(listProductsMock);
+      sinon.stub(productsModel, 'list').resolves(listProductsMock);
+      return expect(productsService.list()).to.eventually.deep.equal(listProductsMock);
     });
   });
 

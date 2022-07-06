@@ -11,7 +11,7 @@ const { listProductsMock, mockObj } = require('../mocks/products.mock');
 describe('productsController', () => {
   beforeEach(() => sinon.restore());
 
-  describe('#get', () => {
+  describe('#list', () => {
     it('deve chamar res.status com 200 e res.json com o array quando o service devolve um array', async () => {
       // arranjo
       const req = {};
@@ -20,10 +20,10 @@ describe('productsController', () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
       
-      sinon.stub(productsService, 'get').resolves(listProductsMock);
+      sinon.stub(productsService, 'list').resolves(listProductsMock);
       
       // ação
-      await productsController.get(req, res);
+      await productsController.list(req, res);
 
       // assertivas
       expect(res.status.calledWith(200)).to.be.equal(true);

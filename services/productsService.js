@@ -32,8 +32,8 @@ const productsService = {
     // });
   },
 
-  get: async () => {
-    const products = await productsModel.get();
+  list: async () => {
+    const products = await productsModel.list();
     return products;
   },
 
