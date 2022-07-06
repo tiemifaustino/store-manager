@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { runSchema } = require('./validators');
-const productsModel = require('../models/productsModel');
 const NotFoundError = require('../errors/NotFoundError');
+const productsModel = require('../models/productsModel');
 
 const productsService = {
   validateParamsId: runSchema(Joi.object({

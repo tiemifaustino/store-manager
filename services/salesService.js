@@ -1,9 +1,14 @@
 const Joi = require('joi');
+const { runSchema } = require('./validators');
+const NotFoundError = require('../errors/NotFoundError');
 const salesModel = require('../models/salesModel');
 const salesProductsModel = require('../models/salesProductsModel');
-const { runSchema } = require('./validators');
 
 const salesService = {
+  validateParamsId: runSchema(Joi.object({
+    id: Joi.number().required().positive().integer(),
+  })),
+
   validateBodyAdd: runSchema(Joi.array().items(
     Joi.object({
       productId: Joi.number().required().positive().integer(),
@@ -11,10 +16,20 @@ const salesService = {
     }),
   )),
 
-  // list: async () => {
-  //   const sales = await salesModel.list();
-  //   return sales;
-  // },
+  checkIfExists: async (id) => {
+    const exists = await salesModel.exists(id);
+    if (!exists) return NotFoundError('Sale not found');
+  },
+
+  listById: async (id) => {
+    const sales = await salesProductsModel.listSalesById(id);
+    return sales;
+  },
+
+  list: async () => {
+    const sales = await salesProductsModel.listAllSales();
+    return sales;
+  },
 
   add: async (data) => {
     // adiciona a venda na tabela 'sales' e retorna o id da venda

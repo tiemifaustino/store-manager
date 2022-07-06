@@ -111,5 +111,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "907797f1-5ddb-4da6-90a6-0de348aec601",
+    "colId": "2c0a06fb-7b30-4f3c-bd1d-75f513e1a458",
+    "containerId": "",
+    "name": "/sales/:id",
+    "url": "localhost:3000/sales/1",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2022-07-06T20:38:54.897Z",
+    "modified": "2022-07-06T20:39:13.833Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

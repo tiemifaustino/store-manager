@@ -2,10 +2,17 @@ const salesService = require('../services/salesService');
 const productsService = require('../services/productsService');
 
 const salesController = {
-  // list: async (_req, res) => {
-  //   const sales = await salesService.list();
-  //   res.status(200).json(sales);
-  // },
+  list: async (_req, res) => {
+    const sales = await salesService.list();
+    res.status(200).json(sales);
+  },
+
+  listById: async (req, res) => {
+    const { id } = await salesService.validateParamsId(req.params);
+    await salesService.checkIfExists(id);
+    const sale = await salesService.listById(id);
+    res.status(200).json(sale);
+  },
 
   add: async (req, res) => {
     const data = await salesService.validateBodyAdd(req.body);
