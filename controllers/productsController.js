@@ -1,4 +1,3 @@
-const { checkIfExists } = require('../services/productsService');
 const productsService = require('../services/productsService');
 
 const productsController = {
@@ -26,6 +25,8 @@ const productsController = {
   },
 
   edit: async (req, res) => {
+    // o { id } é a desestruturação do objeto req.params
+    // o [{ id }, changes] é a desestruturação do retorno do Promise.all
     const [{ id }, changes] = await Promise.all([
       productsService.validateParamsId(req.params),
       productsService.validateBody(req.body),
