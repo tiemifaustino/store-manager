@@ -24,12 +24,7 @@ const productsService = {
     if (!items.length || items.length !== arrayOfId.length) {
       return NotFoundError('Product not found');
     }
-
     return true;
-    
-    // items.forEach((item) => {
-    //   if (!arrayOfId.includes(item.id)) return NotFoundError('Product not found');
-    // });
   },
 
   list: async () => {

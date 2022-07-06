@@ -15,7 +15,7 @@ const salesController = {
   },
 
   add: async (req, res) => {
-    const data = await salesService.validateBodyAdd(req.body);
+    const data = await salesService.validateBody(req.body);
     // forma um array com os ids dos produtos
     const products = data.map((item) => item.productId);
     // verifica se todos os ids são existentes
@@ -26,6 +26,20 @@ const salesController = {
     res.status(201).json({
       id,
       itemsSold: data,
+    });
+  },
+
+  edit: async (req, res) => {
+    const [{ id }, changes] = await Promise.all([
+      salesService.validateParamsId(req.params),
+      salesService.validateBody(req.body),
+    ]);
+    await salesService.checkIfExists(id);
+    await salesService.edit(id, changes);
+    // const item = await salesService.getById(id);
+    res.status(200).json({
+      saleId: id,
+      itemsUpdated: changes,
     });
   },
 

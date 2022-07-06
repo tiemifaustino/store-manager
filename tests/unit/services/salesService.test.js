@@ -13,17 +13,17 @@ const { listAddMock, listAddMockWithoutProductId, listAddMockWithoutQuantity, li
 describe('salesService', () => {
   beforeEach(() => sinon.restore());
 
-  describe('#validateBodyAdd', () => {
+  describe('#validateBody', () => {
     it('deve retornar o array de objetos ao mandar um array de objetos válido', () => {
       const validData = listAddMock;
-      const value = salesService.validateBodyAdd(validData);
+      const value = salesService.validateBody(validData);
       expect(value).to.be.deep.equal(validData);
     });
 
     it('deve retornar erro ao mandar um array de objetos inválido ', () => {
-      expect(() => salesService.validateBodyAdd(listAddMockWithoutProductId)).to.throws(ValidationError);
-      expect(() => salesService.validateBodyAdd(listAddMockWithoutQuantity)).to.throws(ValidationError);
-      expect(() => salesService.validateBodyAdd(listAddMockWithQuantityZero)).to.throws(ValidationError);
+      expect(() => salesService.validateBody(listAddMockWithoutProductId)).to.throws(ValidationError);
+      expect(() => salesService.validateBody(listAddMockWithoutQuantity)).to.throws(ValidationError);
+      expect(() => salesService.validateBody(listAddMockWithQuantityZero)).to.throws(ValidationError);
     });
   });
 

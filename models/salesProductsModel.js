@@ -42,6 +42,26 @@ const salesProductsModel = {
     const [items] = await db.query(sql, [saleId]);
     return items;
   },
+
+  // getById: async (id) => {
+  //   const sql = `
+  //     SELECT * FROM StoreManager.sales_products
+  //     WHERE id = ?
+  //   `;
+  //   const [[item]] = await db.query(sql, [id]);
+  //   return item;
+  // },
+
+  edit: async (id, change) => {
+    const sql = `
+      UPDATE StoreManager.sales_products
+      SET ? 
+      WHERE sale_id = ?
+    `;
+
+    // const map = changes.map((change) => [change, id]);
+    await db.query(sql, [change, id]);
+  },
 };
 
 module.exports = salesProductsModel;
