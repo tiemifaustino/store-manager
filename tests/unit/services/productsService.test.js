@@ -54,6 +54,10 @@ describe('productsService', () => {
       return expect(productsService.checkIfExistsByArrayOfId([999])).to.eventually.be.rejectedWith('Product not found');
     });
     
+    it('deve retornar `true` se os `ids` forem existentes ', () => {
+      sinon.stub(productsModel, 'listByArrayOfId').resolves([1, 2]);
+      return expect(productsService.checkIfExistsByArrayOfId([1, 2])).to.eventually.be.true;
+    });
   });
 
   describe('#get', () => {
