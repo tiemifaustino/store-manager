@@ -7,8 +7,6 @@ use(chaiAsPromised);
 const productsService = require('../../../services/productsService');
 const productsController = require('../../../controllers/productsController');
 const { listProductsMock, mockObj } = require('../mocks/products.mock');
-const NotFoundError = require('../../../errors/NotFoundError');
-
 
 describe('productsController', () => {
   beforeEach(() => sinon.restore());
@@ -16,13 +14,14 @@ describe('productsController', () => {
   describe('#get', () => {
     it('deve chamar res.status com 200 e res.json com o array quando o service devolve um array', async () => {
       // arranjo
-      sinon.stub(productsService, 'get').resolves(listProductsMock);
       const req = {};
       const res = {};
-
+      
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
-
+      
+      sinon.stub(productsService, 'get').resolves(listProductsMock);
+      
       // ação
       await productsController.get(req, res);
 

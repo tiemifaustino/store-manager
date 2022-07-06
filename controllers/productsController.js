@@ -21,7 +21,6 @@ const productsController = {
     const data = await productsService.validateBodyAdd(req.body);
     const id = await productsService.add(data);
     const product = await productsService.getById(id);
-    // const product = { id, ...data };
     res.status(201).json(product);
   },
 };

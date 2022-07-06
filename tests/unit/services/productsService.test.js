@@ -74,6 +74,7 @@ describe('productsService', () => {
       const id = await productsService.add({ name: 'Produto X' });
       expect(id).to.be.equal(expectedId);
     });
+
   });
 
 });
