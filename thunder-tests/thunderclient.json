@@ -97,5 +97,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "609f1c68-ccf5-4709-88ec-cfb2085f02de",
+    "colId": "2c0a06fb-7b30-4f3c-bd1d-75f513e1a458",
+    "containerId": "",
+    "name": "/products/:id",
+    "url": "localhost:3000/products/1",
+    "method": "DELETE",
+    "sortNum": 22500,
+    "created": "2022-07-06T17:56:03.492Z",
+    "modified": "2022-07-06T17:56:32.798Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
