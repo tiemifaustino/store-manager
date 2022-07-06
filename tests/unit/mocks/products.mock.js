@@ -14,7 +14,31 @@ const mocks = {
       productId: 2,
       quantity: 5
     }
-  ]
+  ],
+  listAddMockWithoutProductId: [
+    { quantity: 1 },
+    {
+      productId: 2,
+      quantity: 5
+    }
+  ],
+  listAddMockWithoutQuantity: [
+    { productId: 1 },
+    {
+      productId: 2,
+      quantity: 5
+    }
+  ],
+  listAddMockWithQuantityZero: [
+    {
+      productId: 1,
+      quantity: 0
+    },
+    {
+      productId: 2,
+      quantity: 5
+    }
+  ],
 };
 
 module.exports = mocks;

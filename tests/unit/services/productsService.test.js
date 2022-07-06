@@ -68,7 +68,7 @@ describe('productsService', () => {
   });
 
   describe('#add', () => {
-    it('ao enviar um `name` válido deve salvar no banco ', async () => {
+    it('ao enviar um `name` válido deve salvar no banco', async () => {
       const expectedId = 4
       sinon.stub(productsModel, 'add').resolves(expectedId);
       const id = await productsService.add({ name: 'Produto X' });

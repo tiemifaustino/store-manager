@@ -1,7 +1,7 @@
 const express = require('express');
 require('express-async-errors');
-const productsRoute = require('./routes/productsRoute');
-const salesRoute = require('./routes/salesRoute');
+const productsRoute = require('./routes/products.routes');
+const salesRoute = require('./routes/sales.routes');
 
 const app = express();
 app.use(express.json());

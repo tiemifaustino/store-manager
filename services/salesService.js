@@ -16,7 +16,6 @@ const salesService = {
     const id = await salesModel.add();
     // adiciona na tabela 'sales_products' passando o id da venda e os dados dos produtos
     await salesProductsModel.bulkAddBySales(id, data);
-    // await Promise.all(data.map((item) => salesProductsModel.bulkAddBySales(id, item)));
     return id;
   },
 };
