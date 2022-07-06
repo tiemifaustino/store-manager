@@ -6,8 +6,7 @@ use(chaiAsPromised);
 
 const connection = require('../../../models/connection');
 const productsModel = require('../../../models/productsModel');
-const { listProductsMock, mockObj } = require('../mocks/products.mock');
-
+const { listProductsMock, mockObj, listByArrayIdMock } = require('../mocks/products.mock');
 
 describe('productsModel', () => {
   beforeEach(() => sinon.restore());
@@ -43,6 +42,18 @@ describe('productsModel', () => {
     it('deve falhar se o `connection.query` disparar um erro', () => {
       sinon.stub(connection, 'query').rejects();
       return expect(productsModel.get()).to.eventually.be.rejected;
+    });
+  });
+
+  describe('#listByArrayOfId', () => {
+    it('deve retornar um array com produtos ao consultar o banco', () => {
+      sinon.stub(connection, 'query').resolves([listByArrayIdMock]);
+      return expect(productsModel.listByArrayOfId([1, 2])).to.eventually.be.deep.equal(listByArrayIdMock);
+    });
+
+    it('deve falhar se o `connection.query` disparar um erro', () => {
+      sinon.stub(connection, 'query').rejects();
+      return expect(productsModel.listByArrayOfId([])).to.eventually.be.rejected;
     });
   });
 

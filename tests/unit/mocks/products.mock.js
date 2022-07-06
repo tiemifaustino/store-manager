@@ -6,6 +6,11 @@ const mocks = {
   { id: 3, name: 'Escudo do Capitão América' }
   ],
 
+  listByArrayIdMock: [
+    { id: 1, name: 'Martelo de Thor' },
+    { id: 2, name: 'Traje de encolhimento' },
+  ],
+
   mockObj: { id: 2, name: 'Traje de encolhimento' },
 
   listAddMock: [

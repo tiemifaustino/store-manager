@@ -14,7 +14,6 @@ describe('salesController', () => {
 
   describe('#add', () => {
     it('deve chamar res.status com 201 e res.json com os dados da venda cadastrada', async () => {
-      // arranjo
       const req = {};
       const res = {};
       
@@ -26,10 +25,8 @@ describe('salesController', () => {
       sinon.stub(productsService, 'checkIfExistsByArrayOfId').resolves([1, 2]);
       sinon.stub(salesService, 'add').resolves(3);
 
-      // ação
       await salesController.add(req, res);
 
-      // assertivas
       expect(res.status.calledWith(201)).to.be.equal(true);
       expect(res.json.calledWith(listSaleAddedMock)).to.be.equal(true);
     });
