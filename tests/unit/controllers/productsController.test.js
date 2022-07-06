@@ -11,15 +11,15 @@ const { listProductsMock, mockObj } = require('../mocks/products.mock');
 describe('productsController', () => {
   beforeEach(() => sinon.restore());
 
+  const req = {};
+  const res = {};
+
+  res.status = sinon.stub().returns(res);
+  res.json = sinon.stub();
+
   describe('#list', () => {
     it('deve chamar res.status com 200 e res.json com o array quando o service devolve um array', async () => {
       // arranjo
-      const req = {};
-      const res = {};
-      
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
-      
       sinon.stub(productsService, 'list').resolves(listProductsMock);
       
       // ação
@@ -33,11 +33,6 @@ describe('productsController', () => {
 
   describe('#getById', () => {
     it('deve chamar res.status com 200 e res.json com o objeto quando o service retornar o objeto procurado', async () => {
-      const req = {};
-      const res = {};
-      
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
       req.params = { id: 2 };
       
       sinon.stub(productsService, 'getById').resolves(mockObj);
@@ -49,11 +44,6 @@ describe('productsController', () => {
     });
 
     it('deve retornar erro `NotFoundError` com status 400 quando o id for inexistente', async () => {
-      const req = {};
-      const res = {};
-      
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
       req.params = { id: 202 };
       
       sinon.stub(productsService, 'getById').rejects();
@@ -63,14 +53,7 @@ describe('productsController', () => {
   });
 
   describe('#add', () => {
-    beforeEach(() => sinon.restore());
-    it('deve chamar res.status com 201 e res.json com o objeto criado ao enviar um `req.body` válido', async () => {
-      const req = {};
-      const res = {};
-      
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub();
-      
+    it('deve chamar res.status com 201 e res.json com o objeto criado ao enviar um `req.body` válido', async () => {    
       req.body = { name: 'Produto X' };
       
       sinon.stub(productsService, 'add').resolves(1);
@@ -83,4 +66,35 @@ describe('productsController', () => {
     });
   });
 
+  describe('#edit', () => {
+    it('deve chamar res.status com 200 e res.json com o objeto editado ao enviar um `req.body` válido', async () => {
+      req.body = { name: 'Produto Y' };
+      req.params = { id: 1 };
+
+      sinon.stub(productsService, 'checkIfExists').resolves(1);
+      sinon.stub(productsService, 'edit').resolves(1, { name: 'Produto Y' });
+      sinon.stub(productsService, 'getById').resolves({ id: 1, name: 'Produto Y' });
+
+      await productsController.edit(req, res);
+
+      expect(res.status.calledWith(200)).to.be.equal(true);
+      expect(res.json.calledWith({ id: 1, name: 'Produto Y' })).to.be.equal(true);
+    });
+  });
+
+  describe('#remove', () => {
+    it('deve chamar `res.sendStatus` com 204', async () => {
+      res.sendStatus = sinon.stub();
+    
+      req.params = { id: 1 };
+
+      sinon.stub(productsService, 'validateParamsId').resolves(req.params);
+      sinon.stub(productsService, 'checkIfExists').resolves(1);
+      sinon.stub(productsService, 'remove').resolves(1);
+
+      await productsController.remove(req, res);
+
+      expect(res.sendStatus.calledWith(204)).to.be.true;
+    });
+  });
 });

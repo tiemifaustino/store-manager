@@ -86,7 +86,29 @@ describe('productsService', () => {
       const id = await productsService.add({ name: 'Produto X' });
       expect(id).to.be.equal(expectedId);
     });
-
   });
 
+  describe('#edit', () => {
+    it('deve retornar `undefined` caso `productsModel.edit` altere o produto', async () => {
+      sinon.stub(productsModel, 'edit').resolves();
+      return expect(productsService.edit(1, {})).to.eventually.be.undefined;
+    });
+
+    it('deve disparar um erro caso `productsModel.edit` dispare um erro', async () => {
+      sinon.stub(productsModel, 'edit').rejects();
+      return expect(productsService.edit(1, {})).to.eventually.be.rejected;
+    });
+  });
+
+  describe('#remove', () => {
+    it('deve retornar `undefined` caso `productsModel.remove` remova o produto', async () => {
+      sinon.stub(productsModel, 'remove').resolves();
+      return expect(productsService.remove(1)).to.eventually.be.undefined;
+    });
+
+    it('deve disparar um erro caso `productsModel.remove` dispare um erro', async () => {
+      sinon.stub(productsModel, 'remove').rejects();
+      return expect(productsService.remove(1)).to.eventually.be.rejected;
+    });
+  });
 });

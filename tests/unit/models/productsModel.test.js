@@ -78,4 +78,28 @@ describe('productsModel', () => {
     });
   });
 
+  describe('#edit', () => {
+    it('deve retornar `undefined` caso sucesso', () => {
+      sinon.stub(connection, 'query').resolves();
+      return expect(productsModel.edit(1, {})).to.eventually.be.undefined;
+    });
+
+    it('deve disparar um erro caso o `connection.query` dispare', () => {
+      sinon.stub(connection, 'query').rejects();
+      return expect(productsModel.edit(1, {})).to.eventually.be.rejected;
+    });
+  });
+
+  describe('#remove', () => {
+    it('deve retornar `undefined` caso sucesso', () => {
+      sinon.stub(connection, 'query').resolves();
+      return expect(productsModel.remove(1)).to.eventually.be.undefined;
+    });
+
+    it('deve disparar um erro caso o `connection.query` dispare', () => {
+      sinon.stub(connection, 'query').rejects();
+      return expect(productsModel.remove(1)).to.eventually.be.rejected;
+    });
+  });
+
 });

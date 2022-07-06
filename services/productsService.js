@@ -48,10 +48,7 @@ const productsService = {
   },
 
   edit: async (id, changes) => {
-    // se existir 1 chave -> altera no banco
-    if (Object.keys(changes).length) {
-      await productsModel.edit(id, changes);
-    }
+    await productsModel.edit(id, changes);
   },
 
   remove: async (idProduct) => {
