@@ -38,6 +38,10 @@ const salesService = {
     await salesProductsModel.bulkAddBySales(id, data);
     return id;
   },
+
+  remove: async (id) => {
+    await salesModel.remove(id);
+  },
 };
 
 module.exports = salesService;

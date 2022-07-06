@@ -28,6 +28,13 @@ const salesController = {
       itemsSold: data,
     });
   },
+
+  remove: async (req, res) => {
+    const { id } = await salesService.validateParamsId(req.params);
+    await salesService.checkIfExists(id);
+    await salesService.remove(id);
+    res.sendStatus(204);
+  },
 };
 
 module.exports = salesController;
