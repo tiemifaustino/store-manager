@@ -7,7 +7,8 @@ const salesProductsModel = {
       VALUES ?
     `;
     const map = items.map((item) => [saleId, item.productId, item.quantity]);
-    await db.query(sql, [map]);
+    const [{ affectedRows }] = await db.query(sql, [map]);
+    return !!affectedRows;
   },
 };
 

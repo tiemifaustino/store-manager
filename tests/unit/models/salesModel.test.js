@@ -6,13 +6,12 @@ use(chaiAsPromised);
 
 const connection = require('../../../models/connection');
 const salesModel = require('../../../models/salesModel');
-const { listProductsMock, mockObj } = require('../mocks/products.mock');
 
 describe('salesModel', () => {
   beforeEach(() => sinon.restore());
 
   describe('#add', () => {
-    it('deve retornar o id da venda cadastrada', async () => {
+    it('deve retornar o id da venda cadastrada', () => {
       const expectedId = 4
       sinon.stub(connection, 'query').resolves([{ insertId: expectedId }]);
       return expect(salesModel.add()).to.eventually.be.deep.equal(expectedId);
