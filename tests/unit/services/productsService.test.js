@@ -48,6 +48,14 @@ describe('productsService', () => {
     });
   });
 
+  describe('#checkIfExistsByArrayOfId', () => {
+    it('deve retornar erro se algum `id` de produto fornecido for inexistente', () => {
+      sinon.stub(productsModel, 'listByArrayOfId').resolves(false);
+      return expect(productsService.checkIfExistsByArrayOfId([999])).to.eventually.be.rejectedWith('Product not found');
+    });
+    
+  });
+
   describe('#get', () => {
     it('deve retornar um array com produtos se o model retornar um array', () => {
       sinon.stub(productsModel, 'get').resolves(listProductsMock);

@@ -24,10 +24,10 @@ const productsService = {
     if (!items.length || items.length !== arrayOfId.length) {
       return NotFoundError('Product not found');
     }
-
-    items.forEach((item) => {
-      if (!arrayOfId.includes(item.id)) return NotFoundError('Product not found');
-    });
+    
+    // items.forEach((item) => {
+    //   if (!arrayOfId.includes(item.id)) return NotFoundError('Product not found');
+    // });
   },
 
   get: async () => {
