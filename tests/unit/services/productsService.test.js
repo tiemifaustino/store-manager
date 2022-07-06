@@ -27,10 +27,10 @@ describe('productsService', () => {
     });
   });
 
-  describe('#validateBodyAdd', () => {
+  describe('#validateBody', () => {
     it('deve retornar o objeto ao mandar um `name` válido', () => {
       const validData = { name: 'Produto X' };
-      const value = productsService.validateBodyAdd(validData);
+      const value = productsService.validateBody(validData);
       expect(value).to.be.deep.equal(validData);
     });
 

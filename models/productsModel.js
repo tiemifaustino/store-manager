@@ -4,7 +4,7 @@ const productsModel = {
   exists: async (id) => {
     const sql = `
       SELECT * FROM StoreManager.products
-      WHERE id=?
+      WHERE id = ?
     `;
     const [[exists]] = await db.query(sql, [id]);
     return !!exists; // !! - retorna valor booleano
@@ -28,7 +28,7 @@ const productsModel = {
   getById: async (idProduct) => {
     const sql = `
       SELECT * FROM StoreManager.products
-      WHERE id=?
+      WHERE id = ?
     `;
     const [[item]] = await db.query(sql, [idProduct]);
     return item;
@@ -41,6 +41,15 @@ const productsModel = {
     `;
     const [{ insertId }] = await db.query(sql, [data.name]);
     return insertId;
+  },
+
+  edit: async (id, changes) => {
+    const sql = `
+      UPDATE StoreManager.products 
+      SET ? 
+      WHERE id = ?
+    `;
+    await db.query(sql, [changes, id]);
   },
 };
 

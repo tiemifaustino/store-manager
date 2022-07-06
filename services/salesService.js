@@ -11,6 +11,11 @@ const salesService = {
     }),
   )),
 
+  // list: async () => {
+  //   const sales = await salesModel.list();
+  //   return sales;
+  // },
+
   add: async (data) => {
     // adiciona a venda na tabela 'sales' e retorna o id da venda
     const id = await salesModel.add();

@@ -1,3 +1,4 @@
+const { checkIfExists } = require('../services/productsService');
 const productsService = require('../services/productsService');
 
 const productsController = {
@@ -18,10 +19,21 @@ const productsController = {
   },
 
   add: async (req, res) => {
-    const data = await productsService.validateBodyAdd(req.body);
+    const data = await productsService.validateBody(req.body);
     const id = await productsService.add(data);
     const product = await productsService.getById(id);
     res.status(201).json(product);
+  },
+
+  edit: async (req, res) => {
+    const [{ id }, changes] = await Promise.all([
+      productsService.validateParamsId(req.params),
+      productsService.validateBody(req.body),
+    ]);
+    await productsService.checkIfExists(id);
+    await productsService.edit(id, changes);
+    const item = await productsService.getById(id);
+    res.status(200).json(item);
   },
 };
 
