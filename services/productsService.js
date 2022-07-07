@@ -21,7 +21,7 @@ const productsService = {
     // retorna os itens dos respectivos ids do 'arrayOfId'
     const items = await productsModel.listByArrayOfId(arrayOfId);
 
-    if (!items.length || items.length !== arrayOfId.length) {
+    if (items.length !== arrayOfId.length) {
       return NotFoundError('Product not found');
     }
     return true;

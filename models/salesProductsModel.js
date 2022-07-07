@@ -55,12 +55,11 @@ const salesProductsModel = {
   edit: async (id, change) => {
     const sql = `
       UPDATE StoreManager.sales_products
-      SET ? 
-      WHERE sale_id = ?
+      SET quantity = ? 
+      WHERE sale_id = ? AND product_id = ?
     `;
-
-    // const map = changes.map((change) => [change, id]);
-    await db.query(sql, [change, id]);
+    
+    await db.query(sql, [change.quantity, id, change.productId]);
   },
 };
 

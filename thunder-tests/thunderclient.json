@@ -135,12 +135,12 @@
     "method": "PUT",
     "sortNum": 52500,
     "created": "2022-07-06T21:18:55.890Z",
-    "modified": "2022-07-06T21:19:18.901Z",
+    "modified": "2022-07-07T13:35:44.763Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": " [\n    {\n      \"productId\": 1,\n      \"quantity\":10\n    },\n    {\n      \"productId\": 2,\n      \"quantity\":50\n    }\n  ]",
+      "raw": " [\n    {\n      \"productId\": 9999,\n      \"quantity\":10\n    },\n    {\n      \"productId\": 2,\n      \"quantity\":50\n    }\n  ]",
       "form": []
     },
     "tests": []

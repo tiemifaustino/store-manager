@@ -35,6 +35,9 @@ const salesController = {
       salesService.validateBody(req.body),
     ]);
     await salesService.checkIfExists(id);
+    const products = changes.map((item) => item.productId);
+    await productsService.checkIfExistsByArrayOfId(products);
+    //
     await salesService.edit(id, changes);
     // const item = await salesService.getById(id);
     res.status(200).json({

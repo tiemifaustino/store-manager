@@ -45,10 +45,6 @@ const salesService = {
   },
 
   edit: async (id, changes) => {
-    // const serialize = (data) => ({
-    //   product_id: data.productId,
-    // });
-    
     const items = changes.map((change) => salesProductsModel.edit(id, change));
     await Promise.all(items);
     // await salesProductsModel.edit(id, changes);
