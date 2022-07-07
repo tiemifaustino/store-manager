@@ -11,6 +11,16 @@ const productsModel = {
     return !!exists; // !! - retorna valor booleano
   },
 
+  search: async (name) => {
+    const sql = `
+      SELECT *
+      FROM StoreManager.products
+      WHERE name LIKE ?
+    `;
+    const [items] = await db.query(sql, [`%${name}%`]);
+    return items;
+  },
+
   list: async () => {
     const sql = `
       SELECT *

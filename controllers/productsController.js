@@ -6,15 +6,17 @@ const productsController = {
     res.status(200).json(products);
   },
 
+  search: async (req, res) => {
+    const { q } = req.query;
+    const productsFound = await productsService.search(q);
+    res.status(200).json(productsFound);
+  },
+
   getById: async (req, res) => {
-    // valida o id
-    const { id } = await productsService.validateParamsId(req.params);
-    // verifica se existe no banco
-    await productsService.checkIfExists(id);
-    // pega o dado
-    const item = await productsService.getById(id);
-    // responde
-    res.status(200).json(item);
+    const { id } = await productsService.validateParamsId(req.params); // valida o id
+    await productsService.checkIfExists(id); // verifica se existe no banco
+    const item = await productsService.getById(id); // pega o dado
+    res.status(200).json(item); // responde
   },
 
   add: async (req, res) => {

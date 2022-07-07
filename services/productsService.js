@@ -20,7 +20,6 @@ const productsService = {
   checkIfExistsByArrayOfId: async (arrayOfId) => {
     // retorna os itens dos respectivos ids que existirem do 'arrayOfId'
     const items = await productsModel.listByArrayOfId(arrayOfId);
-
     if (items.length !== arrayOfId.length) {
       return NotFoundError('Product not found');
     }
@@ -30,6 +29,15 @@ const productsService = {
   list: async () => {
     const products = await productsModel.list();
     return products;
+  },
+
+  search: async (name) => {
+    if (name === '') {
+      const products = await productsModel.list();
+      return products;
+    }
+    const productByName = await productsModel.search(name);
+    return productByName;
   },
 
   getById: async (idProduct) => {
