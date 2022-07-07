@@ -31,11 +31,6 @@ const salesService = {
     return sales;
   },
 
-  // getById: async (id) => {
-  //   const item = await salesProductsModel.getById(id);
-  //   return item;
-  // },
-
   add: async (data) => {
     // adiciona a venda na tabela 'sales' e retorna o id da venda
     const id = await salesModel.add();
@@ -47,7 +42,6 @@ const salesService = {
   edit: async (id, changes) => {
     const items = changes.map((change) => salesProductsModel.edit(id, change));
     await Promise.all(items);
-    // await salesProductsModel.edit(id, changes);
   },
 
   remove: async (id) => {

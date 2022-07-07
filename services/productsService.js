@@ -18,7 +18,7 @@ const productsService = {
   },
 
   checkIfExistsByArrayOfId: async (arrayOfId) => {
-    // retorna os itens dos respectivos ids do 'arrayOfId'
+    // retorna os itens dos respectivos ids que existirem do 'arrayOfId'
     const items = await productsModel.listByArrayOfId(arrayOfId);
 
     if (items.length !== arrayOfId.length) {

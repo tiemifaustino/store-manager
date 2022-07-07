@@ -43,22 +43,12 @@ const salesProductsModel = {
     return items;
   },
 
-  // getById: async (id) => {
-  //   const sql = `
-  //     SELECT * FROM StoreManager.sales_products
-  //     WHERE id = ?
-  //   `;
-  //   const [[item]] = await db.query(sql, [id]);
-  //   return item;
-  // },
-
   edit: async (id, change) => {
     const sql = `
       UPDATE StoreManager.sales_products
       SET quantity = ? 
       WHERE sale_id = ? AND product_id = ?
     `;
-    
     await db.query(sql, [change.quantity, id, change.productId]);
   },
 };

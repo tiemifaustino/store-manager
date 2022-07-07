@@ -3,7 +3,8 @@ const db = require('./connection');
 const productsModel = {
   exists: async (id) => {
     const sql = `
-      SELECT * FROM StoreManager.products
+      SELECT *
+      FROM StoreManager.products
       WHERE id = ?
     `;
     const [[exists]] = await db.query(sql, [id]);
@@ -11,14 +12,18 @@ const productsModel = {
   },
 
   list: async () => {
-    const sql = 'SELECT * FROM StoreManager.products';
+    const sql = `
+      SELECT *
+      FROM StoreManager.products
+    `;
     const [items] = await db.query(sql);
     return items;
   },
 
   listByArrayOfId: async (arrayOfId) => {
     const sql = `
-      SELECT * FROM StoreManager.products
+      SELECT *
+      FROM StoreManager.products
       WHERE id IN (?);
     `;
     const [items] = await db.query(sql, [arrayOfId]);
@@ -27,7 +32,8 @@ const productsModel = {
 
   getById: async (idProduct) => {
     const sql = `
-      SELECT * FROM StoreManager.products
+      SELECT *
+      FROM StoreManager.products
       WHERE id = ?
     `;
     const [[item]] = await db.query(sql, [idProduct]);
