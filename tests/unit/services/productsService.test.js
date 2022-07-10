@@ -7,7 +7,7 @@ use(chaiAsPromised);
 const productsModel = require('../../../models/productsModel');
 const productsService = require('../../../services/productsService');
 const { ValidationError } = require('joi');
-const { listProductsMock, mockObj } = require('../mocks/products.mock');
+const { listProductsMock, mockObj, listSearchName, listSearch } = require('../mocks/products.mock');
 
 
 describe('productsService', () => {
@@ -64,6 +64,18 @@ describe('productsService', () => {
     it('deve retornar um array com produtos se o model retornar um array', () => {
       sinon.stub(productsModel, 'list').resolves(listProductsMock);
       return expect(productsService.list()).to.eventually.deep.equal(listProductsMock);
+    });
+  });
+
+  describe('#search', () => {
+    it('deve retornar um item da lista ao enviar um nome na URL', () => {
+      sinon.stub(productsModel, 'search').resolves(listSearchName);
+      return expect(productsService.search('Martelo')).to.eventually.be.equal(listSearchName);
+    });
+
+    it('deve retornar todos os itens da lista caso não passe nenhum termo na URL ', () => {
+      sinon.stub(productsModel, 'list').resolves([[listSearch]]);
+      return expect(productsService.search()).to.eventually.be.equal(listSearch);
     });
   });
 
