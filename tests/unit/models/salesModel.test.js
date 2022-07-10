@@ -6,8 +6,6 @@ use(chaiAsPromised);
 
 const connection = require('../../../models/connection');
 const salesModel = require('../../../models/salesModel');
-const { mockSale } = require('../mocks/sales.mock');
-
 
 describe('salesModel', () => {
   beforeEach(() => sinon.restore());

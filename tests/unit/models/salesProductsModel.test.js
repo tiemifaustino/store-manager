@@ -29,4 +29,40 @@ describe('salesProductsModel', () => {
     });
   });
 
+  describe('#listAllSales', () => {
+    it('deve retornar uma lista caso o `connection.query` retorne', () => {
+      sinon.stub(connection, 'query').resolves([[]]);
+      return expect(salesProductsModel.listAllSales()).to.eventually.deep.equal([]);
+    });
+
+    it('deve disparar um erro caso o connection.query dispare um erro', () => {
+      sinon.stub(connection, 'query').rejects();
+      return expect(salesProductsModel.listAllSales()).to.eventually.be.rejected;
+    });
+  });
+
+  describe('#listSalesById', () => {
+    it('deve retornar uma lista caso o `connection.query` retorne', () => {
+      sinon.stub(connection, 'query').resolves([[]]);
+      return expect(salesProductsModel.listSalesById(1)).to.eventually.deep.equal([]);
+    });
+
+    it('deve disparar um erro caso o connection.query dispare um erro', () => {
+      sinon.stub(connection, 'query').rejects();
+      return expect(salesProductsModel.listSalesById(1)).to.eventually.be.rejected;
+    });
+  });
+
+  describe('#edit', () => {
+    it('deve retornar nada caso sucesso', () => {
+      sinon.stub(connection, 'query').resolves();
+      return expect(salesProductsModel.edit(1, {})).to.eventually.be.undefined;
+    });
+
+    it('deve disparar um erro caso o connection.query dispare um erro', () => {
+      sinon.stub(connection, 'query').rejects();
+      return expect(salesProductsModel.edit(1, {})).to.eventually.be.rejected;
+    });
+  });
+
 });

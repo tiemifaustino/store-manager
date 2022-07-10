@@ -6,7 +6,7 @@ use(chaiAsPromised);
 
 const connection = require('../../../models/connection');
 const productsModel = require('../../../models/productsModel');
-const { listProductsMock, mockObj, listByArrayIdMock } = require('../mocks/products.mock');
+const { listProductsMock, mockObj, listByArrayIdMock, listSearchName, listSearch } = require('../mocks/products.mock');
 
 describe('productsModel', () => {
   beforeEach(() => sinon.restore());
@@ -27,6 +27,18 @@ describe('productsModel', () => {
       sinon.stub(connection, 'execute').resolves(true);
       const result = await productsModel.exists(id)
       expect(result).to.be.eq(false);
+    });
+  });
+
+  describe('#search', () => {
+    it('deve retornar um item da lista ao enviar um nome na URL', () => {
+      sinon.stub(connection, 'query').resolves([listSearchName]);
+      return expect(productsModel.search('Martelo')).to.eventually.be.equal(listSearchName);
+    });
+
+    it('deve retornar todos os itens da lista caso não passe nenhum termo na URL ', () => {
+      sinon.stub(connection, 'query').resolves([listSearch]);
+      return expect(productsModel.search()).to.eventually.be.equal(listSearch);
     });
   });
 
@@ -75,6 +87,11 @@ describe('productsModel', () => {
       const expectedId = 4
       sinon.stub(connection, 'query').resolves([{ insertId: expectedId }]);
       return expect(productsModel.add({ name: 'Produto X' })).to.eventually.be.deep.equal(expectedId);
+    });
+
+    it('deve disparar um erro caso o `connection.query` dispare um erro', () => {
+      sinon.stub(connection, 'query').rejects();
+      return expect(productsModel.add({})).to.eventually.be.rejected;
     });
   });
 
