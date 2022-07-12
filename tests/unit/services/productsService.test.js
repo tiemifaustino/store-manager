@@ -46,6 +46,16 @@ describe('productsService', () => {
       sinon.stub(productsModel, 'exists').resolves(false);
       return expect(productsService.checkIfExists(id)).to.eventually.be.rejectedWith('Product not found');
     });
+
+    it('deve disparar um erro caso `productsModel.exists` também dispare', () => {
+      sinon.stub(productsModel, 'exists').rejects();
+      return expect(productsService.checkIfExists(0)).to.eventually.be.rejected;
+    });
+
+    it('deve retornar `undefined` caso o `productsModel.exists` retorne true', () => {
+      sinon.stub(productsModel, 'exists').resolves(true);
+      return expect(productsService.checkIfExists(0)).to.eventually.be.undefined;
+    });
   });
 
   describe('#checkIfExistsByArrayOfId', () => {
@@ -64,6 +74,11 @@ describe('productsService', () => {
     it('deve retornar um array com produtos se o model retornar um array', () => {
       sinon.stub(productsModel, 'list').resolves(listProductsMock);
       return expect(productsService.list()).to.eventually.deep.equal(listProductsMock);
+    });
+
+    it('deve disparar um erro caso `productsModel.list` dispare um erro', () => {
+      sinon.stub(productsModel, 'list').rejects();
+      return expect(productsService.list()).to.eventually.be.rejected;
     });
   });
 
@@ -97,6 +112,11 @@ describe('productsService', () => {
       sinon.stub(productsModel, 'add').resolves(expectedId);
       const id = await productsService.add({ name: 'Produto X' });
       expect(id).to.be.equal(expectedId);
+    });
+
+    it('deve disparar um erro caso `productsModel.add` dispare um erro', () => {
+      sinon.stub(productsModel, 'add').rejects();
+      return expect(productsService.add({ name: 'Pro' })).to.eventually.be.rejected;
     });
   });
 

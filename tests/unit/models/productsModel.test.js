@@ -40,14 +40,17 @@ describe('productsModel', () => {
       sinon.stub(connection, 'query').resolves([listSearch]);
       return expect(productsModel.search()).to.eventually.be.equal(listSearch);
     });
+
+    it('deve falhar se o`connection.query` disparar um erro', () => {
+      sinon.stub(connection, 'query').rejects();
+      expect(productsModel.search()).to.eventually.be.rejected;
+      expect(productsModel.search('Martelo')).to.eventually.be.rejected;
+    });
   });
 
-  // usando o chaiAsPromised
   describe('#list', () => {
     it('deve retornar um array com produtos ao consultar o banco', () => {
-      // arranjo
       sinon.stub(connection, 'query').resolves([listProductsMock]);
-      // ação/assertiva
       return expect(productsModel.list()).to.eventually.be.deep.equal(listProductsMock);
     });
 
