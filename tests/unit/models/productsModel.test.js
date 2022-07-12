@@ -31,7 +31,7 @@ describe('productsModel', () => {
   });
 
   describe('#search', () => {
-    it('deve retornar um item da lista ao enviar um nome na URL', () => {
+    it('deve retornar pelo menos um item da lista ao enviar um nome na URL', () => {
       sinon.stub(connection, 'query').resolves([listSearchName]);
       return expect(productsModel.search('Martelo')).to.eventually.be.equal(listSearchName);
     });

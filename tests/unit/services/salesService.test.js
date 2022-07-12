@@ -27,7 +27,7 @@ describe('salesService', () => {
     });
   });
 
-  describe('checkIfExists', () => {
+  describe('#checkIfExists', () => {
     it('deve retornar caso o `salesModel.exists` retorne true', () => {
       sinon.stub(salesModel, 'exists').resolves(true);
       return expect(salesService.checkIfExists(1)).to.eventually.be.undefined;
@@ -44,7 +44,7 @@ describe('salesService', () => {
     });
   });
 
-  describe('list', () => {
+  describe('#list', () => {
     it('deve retornar uma lista caso o `salesProductsModel.listAllSales` retorne', () => {
       sinon.stub(salesProductsModel, 'listAllSales').resolves([[]]);
       return expect(salesService.list()).to.eventually.be.deep.equal([[]]);
@@ -56,7 +56,7 @@ describe('salesService', () => {
     });
   });
 
-  describe('listById', () => {
+  describe('#listById', () => {
     it('deve retornar uma lista caso o `salesProductsModel.listSalesById` retorne', () => {
       sinon.stub(salesProductsModel, 'listSalesById').resolves([[]]);
       return expect(salesService.listById(1)).to.eventually.be.deep.equal([[]]);
@@ -100,7 +100,7 @@ describe('salesService', () => {
     });
   });
 
-  describe('remove', () => {
+  describe('#remove', () => {
     it('deve retornar `undefined` caso o `salesModel.remove` remova a venda', () => {
       sinon.stub(salesModel, 'remove').resolves();
       return expect(salesService.remove(1)).to.eventually.be.undefined;

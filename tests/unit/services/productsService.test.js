@@ -68,15 +68,15 @@ describe('productsService', () => {
   });
 
   describe('#search', () => {
-    it('deve retornar um item da lista ao enviar um nome na URL', () => {
+    it('deve retornar pelo menos um item da lista ao enviar um nome na URL', () => {
       sinon.stub(productsModel, 'search').resolves(listSearchName);
       return expect(productsService.search('Martelo')).to.eventually.be.equal(listSearchName);
     });
 
-    // it('deve retornar todos os itens da lista caso não passe nenhum termo na URL ', () => {
-    //   sinon.stub(productsModel, 'list').resolves([[listSearch]]);
-    //   return expect(productsService.search()).to.eventually.be.equal(listSearch);
-    // });
+    it('deve retornar todos os itens da lista caso não passe nenhum termo na URL ', () => {
+      sinon.stub(productsModel, 'list').resolves(listSearch);
+      return expect(productsService.search('')).to.eventually.be.equal(listSearch);
+    });
   });
 
   describe('#getById', () => {
