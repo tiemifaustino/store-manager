@@ -13,6 +13,20 @@ const { listAddMock, listAddMockWithoutProductId, listAddMockWithoutQuantity, li
 describe('salesService', () => {
   beforeEach(() => sinon.restore());
 
+  describe('#validateParamsId', () => {
+    it('deve retornar o objeto ao mandar um `id` válido', () => {
+      const validData = { id: 2 };
+      const value = salesService.validateParamsId(validData);
+      expect(value).to.be.deep.equal(validData);
+    });
+
+    it('deve retornar erro ao mandar um objeto com `id` inválido ', () => {
+      expect(() => salesService.validateParamsId({ id: 'a' })).to.throws(ValidationError);
+      expect(() => salesService.validateParamsId({ id: -1 })).to.throws(ValidationError);
+      expect(() => salesService.validateParamsId({ id: 1.1 })).to.throws(ValidationError);
+    });
+  });
+
   describe('#validateBody', () => {
     it('deve retornar o array de objetos ao mandar um array de objetos válido', () => {
       const validData = listAddMock;

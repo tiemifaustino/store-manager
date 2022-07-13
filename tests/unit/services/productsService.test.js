@@ -59,14 +59,14 @@ describe('productsService', () => {
   });
 
   describe('#checkIfExistsByArrayOfId', () => {
-    it('deve retornar erro se algum `id` de produto fornecido for inexistente', () => {
-      sinon.stub(productsModel, 'listByArrayOfId').resolves(false);
-      return expect(productsService.checkIfExistsByArrayOfId([999])).to.eventually.be.rejectedWith('Product not found');
-    });
-    
     it('deve retornar `true` se os `ids` forem existentes ', () => {
       sinon.stub(productsModel, 'listByArrayOfId').resolves([1, 2]);
       return expect(productsService.checkIfExistsByArrayOfId([1, 2])).to.eventually.be.true;
+    });
+
+    it('deve retornar erro se algum `id` de produto fornecido for inexistente', () => {
+      sinon.stub(productsModel, 'listByArrayOfId').resolves(false);
+      return expect(productsService.checkIfExistsByArrayOfId([999])).to.eventually.be.rejectedWith('Product not found');
     });
   });
 
@@ -91,6 +91,12 @@ describe('productsService', () => {
     it('deve retornar todos os itens da lista caso não passe nenhum termo na URL ', () => {
       sinon.stub(productsModel, 'list').resolves(listSearch);
       return expect(productsService.search('')).to.eventually.be.equal(listSearch);
+    });
+
+    it('deve falhar se o`productsModel.search` disparar um erro', () => {
+      sinon.stub(productsModel, 'search').rejects();
+      expect(productsService.search()).to.eventually.be.rejected;
+      expect(productsService.search('Martelo')).to.eventually.be.rejected;
     });
   });
 

@@ -35,7 +35,7 @@ describe('salesProductsModel', () => {
       return expect(salesProductsModel.listAllSales()).to.eventually.deep.equal([]);
     });
 
-    it('deve disparar um erro caso o connection.query dispare um erro', () => {
+    it('deve disparar um erro caso o `connection.query` dispare um erro', () => {
       sinon.stub(connection, 'query').rejects();
       return expect(salesProductsModel.listAllSales()).to.eventually.be.rejected;
     });
@@ -59,7 +59,7 @@ describe('salesProductsModel', () => {
       return expect(salesProductsModel.edit(1, {})).to.eventually.be.undefined;
     });
 
-    it('deve disparar um erro caso o connection.query dispare um erro', () => {
+    it('deve disparar um erro caso o `connection.query` dispare um erro', () => {
       sinon.stub(connection, 'query').rejects();
       return expect(salesProductsModel.edit(1, {})).to.eventually.be.rejected;
     });

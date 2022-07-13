@@ -27,6 +27,11 @@ describe('productsController', () => {
       expect(res.status.calledWith(200)).to.be.equal(true);
       expect(res.json.calledWith(listProductsMock)).to.be.equal(true);
     });
+
+    it('deve disparar um erro caso o `productsService.list` também dispare', () => {
+      sinon.stub(productsService, 'list').rejects();
+      expect(productsController.list(req, res)).to.eventually.be.rejected;
+    });
   });
 
   describe('#search', () => {
@@ -47,23 +52,47 @@ describe('productsController', () => {
       expect(res.status.calledWith(200)).to.be.equal(true);
       expect(res.json.calledWith(listSearch)).to.be.equal(true);
     });
+
+    it('deve disparar um erro caso o `productsService.search` também dispare', () => {
+      req.query = { q: 'aaa' };
+
+      sinon.stub(productsService, 'search').rejects();
+      expect(productsController.search(req, res)).to.eventually.be.rejected;
+    });
   });
 
   describe('#getById', () => {
     it('deve chamar res.status com 200 e `res.json` com o objeto quando o service retornar o objeto procurado', async () => {
       req.params = { id: 2 };
 
+      sinon.stub(productsService, 'validateParamsId').resolves(req.params);
+      sinon.stub(productsService, 'checkIfExists').resolves(req.params);
       sinon.stub(productsService, 'getById').resolves(mockObj);
       await productsController.getById(req, res);
       expect(res.status.calledWith(200)).to.be.true;
       expect(res.json.calledWith(mockObj)).to.be.true;
     });
 
-    it('deve retornar erro `NotFoundError` com status 400 quando o id for inexistente', () => {
+    it('deve disparar um erro caso `productsService.validateParamsId` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').rejects();
+      return expect(productsController.getById(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve retornar erro quando o id for inexistente', () => {
       req.params = { id: 202 };
 
+      sinon.stub(productsService, 'validateParamsId').resolves(req.params);
+      sinon.stub(productsService, 'checkIfExists').rejects();
+      expect(productsController.getById(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso `productsService.getById` também dispare', () => {
+      req.params = { id: 4 };
+
+      sinon.stub(productsService, 'validateParamsId').resolves(req.params);
+      sinon.stub(productsService, 'checkIfExists').resolves(req.params);
       sinon.stub(productsService, 'getById').rejects();
-      return expect(productsController.getById(req, res)).to.eventually.be.rejectedWith('Product not found');
+      expect(productsController.getById(req, res)).to.eventually.be.rejected;
     });
   });
 
@@ -77,6 +106,22 @@ describe('productsController', () => {
       expect(res.status.calledWith(201)).to.be.equal(true);
       expect(res.json.calledWith({ id: 1, name: 'Produto X' })).to.be.equal(true);
     });
+
+    it('deve disparar um erro caso o `productsService.validateBody` também dispare', () => {
+      sinon.stub(productsService, 'validateBody').rejects();
+      expect(productsController.add(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso o `productsService.add` também dispare', () => {
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'add').rejects();
+      expect(productsController.add(req, res)).to.eventually.be.rejected;    });
+
+    it('deve disparar um erro caso o `productsService.getById` também dispare', () => {
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'add').resolves();
+      sinon.stub(productsService, 'getById').rejects();
+      expect(productsController.add(req, res)).to.eventually.be.rejected;    });
   });
 
   describe('#edit', () => {
@@ -91,6 +136,42 @@ describe('productsController', () => {
       expect(res.status.calledWith(200)).to.be.equal(true);
       expect(res.json.calledWith({ id: 1, name: 'Produto Y' })).to.be.equal(true);
     });
+
+    it('deve disparar um erro caso `productsService.validateParamsId` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').rejects();
+      sinon.stub(productsService, 'validateBody').resolves();
+      expect(productsController.edit(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso `productsService.validateBody` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').resolves({});
+      sinon.stub(productsService, 'validateBody').rejects();
+      expect(productsController.edit(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso `productsService.checkIfExists` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').resolves({});
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'checkIfExists').rejects();
+      expect(productsController.edit(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso `productsService.edit` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').resolves({});
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'checkIfExists').resolves();
+      sinon.stub(productsService, 'edit').rejects();
+      expect(productsController.edit(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso `productsService.getById` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').resolves({});
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'checkIfExists').resolves();
+      sinon.stub(productsService, 'edit').resolves();
+      sinon.stub(productsService, 'getById').rejects();
+      expect(productsController.edit(req, res)).to.eventually.be.rejected;
+    });
   });
 
   describe('#remove', () => {
@@ -104,5 +185,24 @@ describe('productsController', () => {
       await productsController.remove(req, res);
       expect(res.sendStatus.calledWith(204)).to.be.true;
     });
+
+    it('deve disparar um erro caso `productsService.validateParamsId` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').rejects();
+      expect(productsController.remove(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso `productsService.checkIfExists` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').resolves({});
+      sinon.stub(productsService, 'checkIfExists').rejects();
+      expect(productsController.remove(req, res)).to.eventually.be.rejected;
+    });
+
+    it('deve disparar um erro caso `productsService.remove` também dispare', () => {
+      sinon.stub(productsService, 'validateParamsId').resolves({});
+      sinon.stub(productsService, 'checkIfExists').resolves();
+      sinon.stub(productsService, 'remove').rejects();
+      expect(productsController.remove(req, res)).to.eventually.be.rejected;
+    });
   });
+  
 });
