@@ -130,7 +130,7 @@ npm start
 npm run test:mocha
 ```
 
-### 7. Com a aplicação em execução, acesse a documentação 🗂️ (em construção) através da rota:
+### 7. Com a aplicação em execução, acesse a [documentação](http://localhost:3000/docs/) 🗂️ (em construção) através da rota:
 ```
 http://localhost:3000/docs/
 ```
