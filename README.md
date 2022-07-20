@@ -41,7 +41,7 @@ Esta API é um sistema de gerenciamento de vendas no formato dropshipping em que
 
 ## 🗄️ Fornecido pela [Trybe](https://www.betrybe.com/)
 
-- Arquivo `Dockerfile`, `docker-compose.yml`, `.vscode`, `migration.sql`, `seed.sql`, `index.js`, `.eslintrc.json`, `.eslintignore`, `.env.example`, `.editorconfig`, `erStoreManager.png`.
+- Arquivo `Dockerfile`, `docker-compose.yml`, `.vscode`, `migration.sql`, `seed.sql`, `index.js`, `.eslintrc.json`, `.eslintignore`, `.env.example`, `.editorconfig`, `erStoreManager.png`, `utils.js`.
 
 
 ## Banco de dados
