@@ -91,12 +91,12 @@ O **Docker Compose** precisa estar na versão **1.29** ou superior.
 
 ### 1. Clone o repositório
 ```
-git clone git@github.com:tiemifaustino/talker-manager.git
+git clone git@github.com:tiemifaustino/store-manager.git
 ```
 
   * Entre na pasta do repositório que você acabou de clonar:
 ```
-cd talker-manager
+cd store-manager
 ```
 
 
