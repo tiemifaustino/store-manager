@@ -35,7 +35,8 @@ Esta API é um sistema de gerenciamento de vendas no formato dropshipping em que
 - Criar uma API de um CRUD (Create, Read, Update e Delete);
 - Criar middlewares e validações;
 - Desenvolvimento seguindo a arquitetura MSC;
-- Aderência ao padrão REST.
+- Aderência ao padrão REST;
+- Desenvolvimento de testes unitários utilizando `Mocha`, `Chai` e `Sinon`.
 
 
 ## 🗄️ Fornecido pela [Trybe](https://www.betrybe.com/)
@@ -127,4 +128,9 @@ npm start
 ### 6. Para verificar a cobertura dos testes unitários rode o seguinte comando dentro do terminal do container `store_manager` 
 ```
 npm run test:mocha
+```
+
+### 7. Com a aplicação em execução, acesse a documentação 🗂️ (em construção) através da rota:
+```
+http://localhost:3000/docs/
 ```

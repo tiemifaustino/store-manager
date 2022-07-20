@@ -164,5 +164,25 @@
       }
     ],
     "tests": []
+  },
+  {
+    "_id": "c42a1f40-a50a-4572-8eb5-0b59df1401a6",
+    "colId": "2c0a06fb-7b30-4f3c-bd1d-75f513e1a458",
+    "containerId": "",
+    "name": "/products/search?q=",
+    "url": "localhost:3000/products/search?q=",
+    "method": "GET",
+    "sortNum": 41250,
+    "created": "2022-07-20T18:56:05.020Z",
+    "modified": "2022-07-20T18:56:26.644Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]

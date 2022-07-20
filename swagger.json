@@ -1,0 +1,233 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Store Manager API",
+    "description": "API RESTful de gerenciamento de vendas no formato dropshipping em que é possível criar, visualizar, deletar e atualizar produtos e vendas utilizando o banco de dados `MySQL` para a gestão",
+    "contact": {
+      "email": "tiemifaustino@icloud.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "API de teste"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "post": {
+        "summary": "Cadastro de produto",
+        "description": "Esta rota é responsável por cadastrar um novo produto",
+        "tags": ["Products"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "name": "Sabre de luz"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "examples": {
+                  "product": {
+                    "value": {
+                      "id": 4,
+                      "name": "Sabre de luz"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "\"name\" is required"
+          },
+          "422": {
+            "description": "\"name\" length must be at least 5 characters long"
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista os produtos",
+        "description": "Esta rota é responsável por listar todos os produtos",
+        "tags": ["Products"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                },
+                "examples": {
+                  "products": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "name": "Martelo de Thor"
+                      },
+                      {
+                        "id": 2,
+                        "name": "Traje de encolhimento"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "put": {
+        "summary": "Atuliza um produto pelo id",
+        "description": "Esta rota é responsável por atualizar um produto",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id do produto para busca",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "name": "Martelo do Batman"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove um produto pelo id",
+        "description": "Esta rota é responsável por remover um produto",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id do produto para busca",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/products/search": {
+      "get": {
+        "summary": "Busca um produto pelo nome",
+        "description": "Esta rota é responsável por buscar produtos pelo nome fornecido na query",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "nome do produto para busca",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        },
+        "examples": {
+          "products": {
+            "value": [
+              {
+                "id": 1,
+                "name": "Martelo de Thor"
+              },
+              {
+                "id": 3,
+                "name": "Martelo do Batman"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
