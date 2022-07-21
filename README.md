@@ -23,10 +23,10 @@ Esta API é um sistema de gerenciamento de vendas no formato dropshipping em que
 - ![Sinon](https://img.shields.io/badge/sinon.js-323330?style=for-the-badge&logo=sinon)
 - [Joi](https://joi.dev/api/?v=17.6.0)
 - [ExpressJS Async Errors](https://www.npmjs.com/package/express-async-errors)
-- Nodemon
-- Thunder Client
-- DotEnv
-- Docker
+- [Nodemon](https://www.npmjs.com/package/nodemon)
+- [Thunder Client](https://www.thunderclient.com/)
+- [DotEnv](https://www.npmjs.com/package/dotenv)
+- [Docker](https://www.docker.com/)
 
 
 ## 🛠️ Habilidades Utilizadas
